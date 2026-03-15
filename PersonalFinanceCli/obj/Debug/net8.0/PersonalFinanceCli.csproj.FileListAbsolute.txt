@@ -1,0 +1,14 @@
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\bin\Debug\net8.0\PersonalFinanceCli.exe
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\bin\Debug\net8.0\PersonalFinanceCli.deps.json
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\bin\Debug\net8.0\PersonalFinanceCli.runtimeconfig.json
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\bin\Debug\net8.0\PersonalFinanceCli.dll
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\bin\Debug\net8.0\PersonalFinanceCli.pdb
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.AssemblyInfoInputs.cache
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.AssemblyInfo.cs
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.csproj.CoreCompileInputs.cache
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.dll
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\refint\PersonalFinanceCli.dll
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.pdb
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\PersonalFinanceCli.genruntimeconfig.cache
+C:\Users\danil\OneDrive\Рабочий стол\code\с#\╨Ч╨░╨┤╨░╨╜╨╕╨╡ 1\PersonalFinanceCli\obj\Debug\net8.0\ref\PersonalFinanceCli.dll
