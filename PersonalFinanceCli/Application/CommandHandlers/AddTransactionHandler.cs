@@ -65,47 +65,40 @@ public sealed class AddTransactionHandler
     public int EnsureCardSelectedFallback(int? cardId, TransactionType type)
     {
         if (cardId.HasValue)
-        {
-            var byId = _cardRepository.GetById(cardId.Value);
-            if (byId == null)
-            {
-                throw new InvalidOperationException("Card not found.");
-            }
+            return ResolveExplicitCard(cardId.Value);
 
-            return byId.Id;
-        }
-
-        if (type == TransactionType.Expense)
-        {
-            var defaultByStore = _cardRepository.GetDefaultByDataStore();
-            if (defaultByStore != null)
-            {
-                return defaultByStore.Id;
-            }
-
-            var firstByStorePath = _cardRepository.GetFirst();
-            if (firstByStorePath != null)
-            {
-                return firstByStorePath.Id;
-            }
-
-            throw new InvalidOperationException("No cards available.");
-        }
-
-        var defaultByFlag = _cardRepository.GetDefault();
-        if (defaultByFlag != null)
-        {
-            return defaultByFlag.Id;
-        }
-
-        var firstByFlagPath = _cardRepository.GetFirst();
-        if (firstByFlagPath == null)
-        {
-            throw new InvalidOperationException("No cards available.");
-        }
-
-        return firstByFlagPath.Id;
+        return type == TransactionType.Expense
+            ? ResolveExpenseCard()
+            : ResolveIncomeCard();
     }
+
+    private int ResolveExplicitCard(int cardId)
+    {
+        var card = _cardRepository.GetById(cardId);
+        if (card == null)
+            throw new InvalidOperationException("Card not found.");
+
+        return card.Id;
+    }
+
+    private int ResolveExpenseCard()
+    {
+        var card = _cardRepository.GetDefaultByDataStore() ?? _cardRepository.GetFirst();
+        if (card == null)
+            throw new InvalidOperationException("No cards available.");
+
+        return card.Id;
+    }
+
+    private int ResolveIncomeCard()
+    {
+        var card = _cardRepository.GetDefault() ?? _cardRepository.GetFirst();
+        if (card == null)
+            throw new InvalidOperationException("No cards available.");
+
+        return card.Id;
+    }
+
 
     public int ResolveCardId(int? cardId)
     {
