@@ -437,95 +437,33 @@ public sealed class ConsoleUi
 
     private bool AskYesNo(string prompt)
     {
-        while (true)
-        {
-            _console.Write($"{prompt} ");
-            var raw = _console.ReadLine();
-            if (raw == null)
-            {
-                return false;
-            }
-
-            var value = raw.Trim();
-            if (value.Equals("y", StringComparison.OrdinalIgnoreCase) || value.Equals("yes", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            if (value.Equals("n", StringComparison.OrdinalIgnoreCase) || value.Equals("no", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            _console.WriteLine("Error: Please answer y/n.");
-        }
+        return AskYesNoCore(prompt, defaultValue: false, allowCancel: false, allowRussian: false, out _);
     }
 
     private bool AskYesNoDefaultYes(string prompt)
     {
-        while (true)
-        {
-            _console.Write($"{prompt} ");
-            var raw = _console.ReadLine();
-            if (raw == null)
-            {
-                return false;
-            }
-
-            var value = raw.Trim();
-            if (value.Length == 0)
-            {
-                return true;
-            }
-
-            if (value.Equals("y", StringComparison.OrdinalIgnoreCase) || value.Equals("yes", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            if (value.Equals("n", StringComparison.OrdinalIgnoreCase) || value.Equals("no", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            _console.WriteLine("Error: Please answer y/n.");
-        }
+        return AskYesNoCore(prompt, defaultValue: true, allowCancel: false, allowRussian: false, out _);
     }
 
     private bool AskYesNoDefaultNo(string prompt)
     {
-        while (true)
-        {
-            _console.Write($"{prompt} ");
-            var raw = _console.ReadLine();
-            if (raw == null)
-            {
-                return false;
-            }
-
-            var value = raw.Trim();
-            if (value.Length == 0)
-            {
-                return false;
-            }
-
-            if (value.Equals("y", StringComparison.OrdinalIgnoreCase) || value.Equals("yes", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            if (value.Equals("n", StringComparison.OrdinalIgnoreCase) || value.Equals("no", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            _console.WriteLine("Error: Please answer y/n.");
-        }
+        return AskYesNoCore(prompt, defaultValue: false, allowCancel: false, allowRussian: false, out _);
     }
 
     private bool AskYesNoWithCancel(string prompt, out bool canceled)
     {
+        return AskYesNoCore(prompt, defaultValue: false, allowCancel: true, allowRussian: true, out canceled);
+    }
+
+    private bool AskYesNoCore(
+        string prompt,
+        bool defaultValue,
+        bool allowCancel,
+        bool allowRussian,
+        out bool canceled)
+    {
         canceled = false;
+
         while (true)
         {
             _console.Write($"{prompt} ");
@@ -536,33 +474,28 @@ public sealed class ConsoleUi
             }
 
             var value = raw.Trim();
-            if (value.Equals("cancel", StringComparison.OrdinalIgnoreCase))
+
+            if (allowCancel && value.Equals("cancel", StringComparison.OrdinalIgnoreCase))
             {
                 canceled = true;
                 return false;
             }
 
-            if (value.Equals("да", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            if (value.Equals("нет", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
             if (value.Length == 0)
             {
-                return false;
+                return defaultValue;
             }
 
-            if (value.Equals("y", StringComparison.OrdinalIgnoreCase) || value.Equals("yes", StringComparison.OrdinalIgnoreCase))
+            if (value.Equals("y", StringComparison.OrdinalIgnoreCase) ||
+                value.Equals("yes", StringComparison.OrdinalIgnoreCase) ||
+                (allowRussian && value.Equals("да", StringComparison.OrdinalIgnoreCase)))
             {
                 return true;
             }
 
-            if (value.Equals("n", StringComparison.OrdinalIgnoreCase) || value.Equals("no", StringComparison.OrdinalIgnoreCase))
+            if (value.Equals("n", StringComparison.OrdinalIgnoreCase) ||
+                value.Equals("no", StringComparison.OrdinalIgnoreCase) ||
+                (allowRussian && value.Equals("нет", StringComparison.OrdinalIgnoreCase)))
             {
                 return false;
             }
@@ -570,6 +503,7 @@ public sealed class ConsoleUi
             _console.WriteLine("Error: Please answer y/n.");
         }
     }
+
 
     private void ExecuteParsedCommand(ParsedCommand command)
     {
