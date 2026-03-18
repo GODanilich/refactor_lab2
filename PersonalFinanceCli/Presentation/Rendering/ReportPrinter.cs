@@ -115,57 +115,42 @@ public sealed class ReportPrinter
 
     private void PrintLimit(decimal expense, decimal? limit, Currency currency)
     {
-        if (limit.HasValue)
-        {
-            if (limit.Value <= 0)
-            {
-                _writer.WriteLine("Limit: (not set)");
-                return;
-            }
-
-            var percent = limit.Value == 0m ? 0 : (int)Math.Round((expense / limit.Value) * 100m, MidpointRounding.AwayFromZero);
-            _writer.WriteLine($"Limit: {limit.Value:F2} {currency} ({percent}%)");
-            return;
-        }
-
-        _writer.WriteLine("Limit: (not set)");
+        PrintLimitCore(expense, limit, currency, includePercent: false, useRoundedPercent: false);
     }
 
     private void PrintLimitWithFloorPercent(decimal expense, decimal? limit, Currency currency)
     {
-        if (limit.HasValue)
-        {
-            if (limit.Value <= 0)
-            {
-                _writer.WriteLine("Limit: (not set)");
-                return;
-            }
-
-            var percent = (int)Math.Floor((expense / limit.Value) * 100m);
-            _writer.WriteLine($"Limit: {FormatMoney(limit.Value, currency)} ({percent}%)");
-            return;
-        }
-
-        _writer.WriteLine("Limit: (not set)");
+        PrintLimitCore(expense, limit, currency, includePercent: true, useRoundedPercent: false);
     }
 
     private void PrintLimitWithRoundPercent(decimal expense, decimal? limit, Currency currency)
     {
-        if (limit.HasValue)
-        {
-            if (limit.Value <= 0)
-            {
-                _writer.WriteLine("Limit: (not set)");
-                return;
-            }
+        PrintLimitCore(expense, limit, currency, includePercent: true, useRoundedPercent: true);
+    }
 
-            var percent = limit.Value == 0m ? 0 : (int)Math.Round((expense / limit.Value) * 100m, MidpointRounding.AwayFromZero);
-            _writer.WriteLine($"Limit: {limit.Value:F2} {currency} ({percent}%)");
+    private void PrintLimitCore(decimal expense, decimal? limit, Currency currency, bool includePercent, bool useRoundedPercent)
+    {
+        if (!limit.HasValue || limit.Value <= 0)
+        {
+            _writer.WriteLine("Limit: (not set)");
             return;
         }
 
-        _writer.WriteLine("Limit: (not set)");
+        var formattedLimit = FormatMoney(limit.Value, currency);
+
+        if (!includePercent)
+        {
+            _writer.WriteLine($"Limit: {formattedLimit}");
+            return;
+        }
+
+        var percent = useRoundedPercent
+            ? (int)Math.Round((expense / limit.Value) * 100m, MidpointRounding.AwayFromZero)
+            : (int)Math.Floor((expense / limit.Value) * 100m);
+
+        _writer.WriteLine($"Limit: {formattedLimit} ({percent}%)");
     }
+
 
     private Dictionary<string, decimal> RecalculateCategories(DateOnly date, Currency currency)
     {
