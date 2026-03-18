@@ -20,7 +20,7 @@ public sealed class DailyReportService
         _limitRepository = limitRepository;
     }
 
-public DailyReport Generate(DateOnly date)
+    public DailyReport Generate(DateOnly date)
     {
         var cards = _cardRepository.GetAll();
         var currency = ResolveReportCurrency(cards);
@@ -122,7 +122,7 @@ public DailyReport Generate(DateOnly date)
 
         return balance;
     }
-
+}
 public sealed record DailyReport(
     DateOnly Date,
     Currency Currency,
