@@ -52,22 +52,16 @@ public sealed class CushionService
 
         if (incomeAmount < 10m)
         {
-            if (hasSalaryWord)
-            {
-                return 1m;
-            }
 
             return 1m;
         }
-        else
-        {
-            if (hasSalaryWord)
-            {
-                return Floor2(incomeAmount * 0.20m);
-            }
 
-            return Floor2(incomeAmount * 0.10m);
+        if (hasSalaryWord)
+        {
+            return Floor2(incomeAmount * 0.20m);
         }
+
+        return Floor2(incomeAmount * 0.10m);
     }
 
     public static decimal Floor2(decimal value)

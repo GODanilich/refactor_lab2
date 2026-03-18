@@ -27,7 +27,7 @@ public static class Program
         var setDefaultCardHandler = new SetDefaultCardHandler(cardRepository);
         var addTransactionHandler = new AddTransactionHandler(transactionRepository, cardRepository, clock);
         var addIncomeHandler = new AddIncomeHandler(addTransactionHandler);
-        var addExpenseHandler = new AddExpenseHandler(transactionRepository, cardRepository, clock);
+        var addExpenseHandler = new AddExpenseHandler(addTransactionHandler);
         var setDailyLimitHandler = new SetDailyLimitHandler(limitRepository, cardRepository, clock);
         var dailyReportService = new DailyReportService(cardRepository, transactionRepository, limitRepository);
         var cushionService = new CushionService(cardRepository);
